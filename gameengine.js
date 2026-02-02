@@ -57,19 +57,19 @@ class GameEngine {
         });
 
         this.ctx.canvas.addEventListener("mousedown", e => {
-            switch (e.button) {
-                case 0: this.entities[0].mouseClicked = true;
-                        break;
-                case 2: this.entities[0].mouseHeld = true;
+            if (this.options.debugging) {
+                console.log("mousedown", getXandY(e));
             }
+            this.click = getXandY(e);
+            this.keys[e.button] = true;
         });
 
         this.ctx.canvas.addEventListener("mouseup", e => {
-            switch (e.button) {
-                case 0: this.entities[0].mouseClicked = false;
-                        break;
-                case 2: this.entities[0].mouseHeld = false;
+            if (this.options.debugging) {
+                console.log("mouseup", getXandY(e));
             }
+            this.click = getXandY(e);
+            this.keys[e.button] = false;
         });
 
         this.ctx.canvas.addEventListener("wheel", e => {
@@ -92,19 +92,23 @@ class GameEngine {
         this.ctx.canvas.addEventListener("keyup", event => this.keys[event.code] = false);
     };
 
-    addEntity(entity) {
-        this.entities.push(entity);
+    addEntity(entity, layer) {
+        if (!entity.draw || layer === undefined)
+            throw new Error("Invalid entity tuple");
+
+        // store as object so we can keep metadata (layer) alongside entity
+        this.entities.push({ entity, layer });
     };
 
     draw() {
-        //this.ctx.setTransform(1, 0, 0, 1, 0, 0);
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        //this.ctx.setTransform(this.scale || 1, 0, 0, this.scale || 1, 0, 0);
+        
 
-        // Draw latest things first
-        for (let i = this.entities.length - 1; i >= 0; i--) {
-            this.entities[i].draw(this.ctx, this);
+        // Draw based on draw order (lower layer drawn first)
+        this.entities.sort((a, b) => a.layer - b.layer);
+        for (const item of this.entities) {
+            item.entity.draw(this.ctx);
         }
     };
 
@@ -112,7 +116,8 @@ class GameEngine {
         let entitiesCount = this.entities.length;
 
         for (let i = 0; i < entitiesCount; i++) {
-            let entity = this.entities[i];
+            let item = this.entities[i];
+            let entity = item.entity;
 
             if (!entity.removeFromWorld) {
                 entity.update(this.keys);
@@ -120,15 +125,11 @@ class GameEngine {
         }
 
         for (let i = this.entities.length - 1; i >= 0; --i) {
-            if (this.entities[i].removeFromWorld) {
+            if (this.entities[i].entity.removeFromWorld) {
                 this.entities.splice(i, 1);
             }
         }
     };
-
-    updateAmmo(ammo) {
-        document.getElementById("ammo").innerText = ammo;
-    }
 
     loop() {
         this.clockTick = this.timer.tick();
@@ -139,3 +140,6 @@ class GameEngine {
 };
 
 // KV Le was here :)
+
+// Expose to global scope for non-module scripts
+window.GameEngine = GameEngine;

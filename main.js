@@ -7,8 +7,10 @@ const DEFAULT_Y = 475;
 const GAME_WIDTH = 1344;
 const GAME_HEIGHT = 768;
 
-ASSET_MANAGER.queueDownload("./res/map/Background.png");
-ASSET_MANAGER.queueDownload("./res/Player/Soldier1_Spritesheet.png");
+ASSET_MANAGER.queueDownload("./res/map/back.png");
+ASSET_MANAGER.queueDownload("./res/map/middle.png");
+ASSET_MANAGER.queueDownload("./res/map/front.png");
+ASSET_MANAGER.queueDownload("./res/Player/player_spritesheet.png");
 
 
 ASSET_MANAGER.downloadAll(() => {
@@ -19,8 +21,12 @@ ASSET_MANAGER.downloadAll(() => {
 	
 
 	// entities
-	player = new Soldier(gameEngine, DEFAULT_X, DEFAULT_Y);
-	gameEngine.addEntity(player);
+	player = new Player(gameEngine, DEFAULT_X, DEFAULT_Y);
+	background = new Background(gameEngine);
+
+	// adding entities
+	gameEngine.addEntity(player, 1);
+	//gameEngine.addEntity(background, 2);
 
 	gameEngine.init(ctx);
 
