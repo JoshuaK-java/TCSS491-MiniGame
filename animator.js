@@ -10,8 +10,7 @@ class Animator {
         ctx.imageSmoothingEnabled = false;
         this.elapsedTime += tick;
         if(this.elapsedTime > this.totalTime) this.elapsedTime -= this.totalTime;
-        const frame = this.currentFrame();
-
+            const frame = this.currentFrame();
         
         if (this.flip) {
             ctx.save();

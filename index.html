@@ -7,11 +7,12 @@
   
     <script type="text/javascript" defer src="./assetmanager.js"></script>
     <script type="text/javascript" defer src="./timer.js"></script>
-    <script type="text/javascript" defer src="./gameengine.js"></script>
+    <script defer src="./gameengine.js"></script>
     <script type="text/javascript" defer src="./util.js"></script>
     <script type="text/javascript" defer src="./animator.js"></script>
-    <script type="text/javascript" defer src="./soldier.js"></script>
-    <script type="text/javascript" defer src="./grenade.js"></script>
+    <script type="text/javascript" defer src="./player.js"></script>
+    <script type="text/javascript" defer src="./backgroundLayer.js"></script>
+    <script type="text/javascript" defer src="./background.js"></script>
     <script type="text/javascript" defer src="./main.js"></script>
     <style>
         #gameLayout {
@@ -25,7 +26,6 @@
 
         canvas {
             display: block;
-            background-image: url("./res/map/Background.png");
             background-size: cover;
             background-repeat: no-repeat;
             background-position: left;
@@ -53,16 +53,15 @@
 
         <div id="uiPanel">
             <h2>Controls</h2>
-           
-            <div class="ui-item">Ammo: <span id=ammo>25</span></div>
 
             <hr>
             <p><b>Walk:</b> A / D</p>
             <p><b>Run:</b> Shift + A / D</p>
-            <p><b>Shoot:</b> Left / Right mouse click</p>
-            <p><b>Reload:</b> R</p>
-            <p><b>Grenade:</b> G</p>
-            <p><b>melee:</b> Q</p>
+            <p><b>Jump:</b> Space Bar</p>
+            <p><b>Attack 1</b> Left Click</p>
+            <p><b>Attack 2:</b> S</p>
+            <p><b>Attack 3:</b> W</p>
+            <p><b>Parry:</b> Right Click</p>
         </div>
     </div>
 </body>
