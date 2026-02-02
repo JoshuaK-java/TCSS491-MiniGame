@@ -1,0 +1,69 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Animation Assignment - Joshua Kalcha</title>
+  
+    <script type="text/javascript" defer src="./assetmanager.js"></script>
+    <script type="text/javascript" defer src="./timer.js"></script>
+    <script type="text/javascript" defer src="./gameengine.js"></script>
+    <script type="text/javascript" defer src="./util.js"></script>
+    <script type="text/javascript" defer src="./animator.js"></script>
+    <script type="text/javascript" defer src="./soldier.js"></script>
+    <script type="text/javascript" defer src="./grenade.js"></script>
+    <script type="text/javascript" defer src="./main.js"></script>
+    <style>
+        #gameLayout {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            background-image: url("./res/map/Background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: left;
+            border: 2px solid #222;
+        }
+
+        #uiPanel {
+            width: 200px;
+            padding: 16px;
+            background-color: aqua;
+            font-family: Arial, sans-serif;
+            border: 2px solid #222;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameLayout">
+        <canvas 
+            id="gameWorld" 
+            width="1344";
+            height="768";
+            tabindex="0" 
+            autofocus
+        ></canvas>
+
+        <div id="uiPanel">
+            <h2>Controls</h2>
+           
+            <div class="ui-item">Ammo: <span id=ammo>25</span></div>
+
+            <hr>
+            <p><b>Walk:</b> A / D</p>
+            <p><b>Run:</b> Shift + A / D</p>
+            <p><b>Shoot:</b> Left / Right mouse click</p>
+            <p><b>Reload:</b> R</p>
+            <p><b>Grenade:</b> G</p>
+            <p><b>melee:</b> Q</p>
+        </div>
+    </div>
+</body>
+</html>
